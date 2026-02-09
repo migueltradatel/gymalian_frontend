@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/athlete-home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ plan?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="plan">
+    <div *ngFor="let session of plan.sessions">
+      <h3>{{ session.dayName }}</h3>
+
+      <ion-card *ngFor="let ex of session.exercises; let i = index">
+        <ion-card-header>
+          <ion-card-title>{{ ex.exerciseId.name }}</ion-card-title>
+          <ion-card-subtitle>{{ ex.exerciseId.muscleGroup }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Target: {{ ex.targetSets }} sets x {{ ex.targetReps }} reps</p>
+          <div *ngFor="let set of getSetsArray(ex.targetSets); let j = index">
+            <ion-row>
+              <ion-col>
+                <ion-input type="number" placeholder="Kg" [(ngModel)]="logs[i].sets[j].weight"></ion-input>
+              </ion-col>
+              <ion-col>
+                <ion-input type="number" placeholder="Reps" [(ngModel)]="logs[i].sets[j].reps"></ion-input>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-button expand="block" (click)="submitLog()" class="ion-margin-top">
+      Complete Workout
+    </ion-button>
+
+    <ion-item *ngIf="feedbackMessage" [color]="feedbackColor">
+      <ion-label>{{ feedbackMessage }}</ion-label>
+    </ion-item>
+  </div>
+</ion-content>

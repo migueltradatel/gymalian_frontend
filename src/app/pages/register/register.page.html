@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="register()">
+    <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select [(ngModel)]="role" name="role">
+        <ion-select-option value="COACH">Coach</ion-select-option>
+        <ion-select-option value="ATHLETE">Athlete</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="role === 'ATHLETE'">
+      <ion-label position="floating">Access Code</ion-label>
+      <ion-input type="text" [(ngModel)]="code" name="code"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">Register</ion-button>
+  </form>
+</ion-content>
