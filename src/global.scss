@@ -32,6 +32,56 @@
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+@import "@ionic/angular/css/palettes/dark.always.css";
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+/* Custom Design System Utilities */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+// Typography Overrides
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--ion-text-color);
+}
+
+// Button Styles
+ion-button.cta-primary {
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
+    --border-radius: 8px;
+    font-weight: 700;
+    --box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+// Input Styles
+ion-item {
+    --background: transparent;
+    --border-color: #333;
+}
+
+// Utility Classes
+.text-gradient-orange {
+    background: linear-gradient(45deg, #FF6B00, #FF9E00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+.glow-effect {
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+}

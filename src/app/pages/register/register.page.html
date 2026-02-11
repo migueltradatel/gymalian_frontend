@@ -5,30 +5,38 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="register()">
-    <ion-item>
-      <ion-label>Role</ion-label>
-      <ion-select [(ngModel)]="role" name="role">
-        <ion-select-option value="COACH">Coach</ion-select-option>
-        <ion-select-option value="ATHLETE">Athlete</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <div class="ion-text-center ion-margin-top">
+    <img src="assets/logo.png" alt="App Logo" style="width: 80px; height: auto;">
+    <h2 class="ion-text-center ion-margin-bottom">Create Account</h2>
+  </div>
 
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-    </ion-item>
+  <ion-card class="ion-no-margin">
+    <ion-card-content>
+      <form (ngSubmit)="register()">
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-select [(ngModel)]="role" name="role" label="Role" label-placement="floating" interface="popover">
+            <ion-select-option value="COACH">Coach</ion-select-option>
+            <ion-select-option value="ATHLETE">Athlete</ion-select-option>
+          </ion-select>
+        </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-    </ion-item>
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email" required></ion-input>
+        </ion-item>
 
-    <ion-item *ngIf="role === 'ATHLETE'">
-      <ion-label position="floating">Access Code</ion-label>
-      <ion-input type="text" [(ngModel)]="code" name="code"></ion-input>
-    </ion-item>
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Password" required></ion-input>
+        </ion-item>
 
-    <ion-button expand="block" type="submit" class="ion-margin-top">Register</ion-button>
-  </form>
+        <ion-item *ngIf="role === 'ATHLETE'" lines="none" class="ion-margin-bottom">
+          <ion-icon name="key-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="text" [(ngModel)]="code" name="code" placeholder="Access Code"></ion-input>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Register</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

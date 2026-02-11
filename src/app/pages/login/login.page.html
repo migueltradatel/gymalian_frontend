@@ -5,21 +5,33 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form (ngSubmit)="login()">
-    <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
-    </ion-item>
+  <div class="ion-text-center ion-margin-top ion-padding-top">
+    <img src="assets/logo.png" alt="App Logo" style="width: 120px; height: auto;" class="ion-margin-bottom">
+    <h1 class="text-gradient-orange ion-no-margin">Welcome Back</h1>
+    <p class="ion-text-secondary">Sign in to continue</p>
+  </div>
 
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-    </ion-item>
+  <ion-card class="ion-no-margin ion-margin-top">
+    <ion-card-content>
+      <form (ngSubmit)="login()">
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email" required></ion-input>
+        </ion-item>
 
-    <ion-button expand="block" type="submit" class="ion-margin-top">Login</ion-button>
-  </form>
+        <ion-item lines="none" class="ion-margin-bottom">
+          <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
+          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Password" required></ion-input>
+        </ion-item>
 
-  <ion-button expand="block" fill="clear" routerLink="/register">
-    Create Account
-  </ion-button>
+        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Login</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-text-center ion-margin-top">
+    <ion-button fill="clear" routerLink="/register" color="secondary">
+      Create Account
+    </ion-button>
+  </div>
 </ion-content>

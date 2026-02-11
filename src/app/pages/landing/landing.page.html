@@ -1,0 +1,93 @@
+<ion-content [fullscreen]="true">
+  <div class="landing-container">
+
+    <!-- Header / Top Left -->
+    <header class="landing-header">
+      <div class="logo-area">
+        <!-- Placeholder for Logo - You can replace src with actual asset later -->
+        <div class="logo-circle">
+          <img src="assets/icon/favicon.png" alt="Logo" class="logo-img" onerror="this.style.display='none'" />
+        </div>
+        <h1 class="app-title">Gymalian</h1>
+      </div>
+    </header>
+
+    <!-- Main Hero Section -->
+    <section class="hero-section">
+      <h2 class="hero-title">Train Smart. <br> <span class="text-gradient-orange">Live Better.</span></h2>
+      <p class="hero-subtitle">The ultimate personal trainer experience.</p>
+
+      <div class="action-area">
+        <ion-button routerLink="/login" shape="round" class="cta-button" size="large">
+          Login to App
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+        <p class="guest-hint">New here? <a routerLink="/register">Create an account</a></p>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section">
+      <h3 class="section-title">Why Gymalian?</h3>
+
+      <div class="features-grid">
+        <!-- Card 1 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="barbell-outline"></ion-icon></div>
+          <h4>Smart Workouts</h4>
+          <p>AI-powered plans tailored to your goals.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="nutrition-outline"></ion-icon></div>
+          <h4>Nutrition Tracking</h4>
+          <p>Log meals and track macros easily.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="trending-up-outline"></ion-icon></div>
+          <h4>Progress Analytics</h4>
+          <p>Visualize your gains with detailed charts.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="people-outline"></ion-icon></div>
+          <h4>Community</h4>
+          <p>Connect with other athletes and coaches.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="calendar-outline"></ion-icon></div>
+          <h4>Scheduling</h4>
+          <p>Book sessions with your personal trainer.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="videocam-outline"></ion-icon></div>
+          <h4>Live Sessions</h4>
+          <p>Join remote training sessions seamlessly.</p>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="trophy-outline"></ion-icon></div>
+          <h4>Achievements</h4>
+          <p>Earn badges and compete on leaderboards.</p>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="feature-card">
+          <div class="card-icon"><ion-icon name="settings-outline"></ion-icon></div>
+          <h4>Customizable</h4>
+          <p>Tailor the app experience to your needs.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ion-content>

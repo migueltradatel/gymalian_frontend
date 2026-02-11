@@ -4,7 +4,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    redirectTo: 'landing',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'session-view/:id',
     loadChildren: () => import('./pages/session-view/session-view.module').then(m => m.SessionViewPageModule)
+  },
+  {
+    path: 'landing',
+    loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingPageModule)
   }
 ];
 @NgModule({
