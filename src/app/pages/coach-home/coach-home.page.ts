@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { CreatePlanModalComponent } from './create-plan/create-plan.modal';
+import { CreateExerciseModalComponent } from './create-exercise/create-exercise.modal';
 
 @Component({
   selector: 'app-coach-home',
@@ -15,7 +17,8 @@ export class CoachHomePage implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -35,42 +38,31 @@ export class CoachHomePage implements OnInit {
   }
 
   async addExercisePrompt() {
-    const alert = await this.alertCtrl.create({
-      header: 'New Exercise',
-      inputs: [
-        { name: 'name', type: 'text', placeholder: 'Name' },
-        { name: 'muscleGroup', type: 'text', placeholder: 'Muscle Group' }
-      ],
-      buttons: [
-        { text: 'Cancel', role: 'cancel' },
-        {
-          text: 'Save',
-          handler: (data) => {
-            this.createExercise(data);
-          }
-        }
-      ]
+    const modal = await this.modalCtrl.create({
+      component: CreateExerciseModalComponent
     });
-    await alert.present();
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data) {
+      this.createExercise(data);
+    }
   }
 
   async createPlanPrompt() {
-    // Simplified Plan Creator for MVP
-    const alert = await this.alertCtrl.create({
-      header: 'New Workout Plan',
-      inputs: [
-        { name: 'name', type: 'text', placeholder: 'Plan Name' },
-        { name: 'athleteId', type: 'text', placeholder: 'Athlete ID (Optional)' }
-      ],
-      buttons: [
-        { text: 'Cancel', role: 'cancel' },
-        {
-          text: 'Create',
-          handler: (data) => this.createPlan(data)
-        }
-      ]
+    const modal = await this.modalCtrl.create({
+      component: CreatePlanModalComponent
     });
-    await alert.present();
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+
+    if (data) {
+      this.createPlan(data);
+    }
   }
 
   createPlan(data: any) {

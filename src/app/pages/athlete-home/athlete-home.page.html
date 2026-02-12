@@ -1,9 +1,14 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <div class="header-logo-container" slot="start">
-      <img src="assets/logo.png" alt="Gymalian Logo" class="header-logo" />
-    </div>
-    <ion-title>Gymalian <span class="text-orange">My Plans</span></ion-title>
+    <ion-buttons slot="start">
+      <div class="header-brand-container">
+        <img src="assets/logo.png" alt="Logo" class="header-logo" />
+        <span class="header-brand-name">Gymalian</span>
+      </div>
+    </ion-buttons>
+
+    <ion-title class="header-page-title">My Plans</ion-title>
+
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
         <ion-icon name="log-out-outline" color="secondary"></ion-icon>

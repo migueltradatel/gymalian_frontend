@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { CoachHomePageRoutingModule } from './coach-home-routing.module';
 
 import { CoachHomePage } from './coach-home.page';
+import { CreatePlanModalComponent } from './create-plan/create-plan.modal';
+import { CreateExerciseModalComponent } from './create-exercise/create-exercise.modal';
 
 @NgModule({
   imports: [
@@ -15,6 +17,6 @@ import { CoachHomePage } from './coach-home.page';
     IonicModule,
     CoachHomePageRoutingModule
   ],
-  declarations: [CoachHomePage]
+  declarations: [CoachHomePage, CreatePlanModalComponent, CreateExerciseModalComponent]
 })
-export class CoachHomePageModule {}
+export class CoachHomePageModule { }
