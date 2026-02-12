@@ -12,7 +12,9 @@ import { CreateExerciseModalComponent } from './create-exercise/create-exercise.
   standalone: false
 })
 export class CoachHomePage implements OnInit {
+  currentTab: string = 'dashboard';
   exercises: any[] = [];
+  coachName: string = '';
 
   constructor(
     private api: ApiService,
@@ -23,6 +25,17 @@ export class CoachHomePage implements OnInit {
 
   ngOnInit() {
     this.loadExercises();
+    this.loadCoachName();
+  }
+
+  loadCoachName() {
+    // For now, use a default name
+    // In a full implementation, you'd fetch the user profile from the backend
+    this.coachName = 'Coach';
+  }
+
+  switchTab(tab: string) {
+    this.currentTab = tab;
   }
 
   loadExercises() {

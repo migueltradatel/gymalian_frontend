@@ -1,0 +1,99 @@
+.session-header {
+    margin-bottom: 20px;
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
+
+.exercise-card {
+    margin: 0 0 20px 0;
+    border-radius: 16px;
+
+    ion-card-header {
+        padding-bottom: 8px;
+    }
+
+    ion-card-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: white;
+    }
+}
+
+.target-info {
+    margin-bottom: 16px;
+}
+
+.sets-table {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table-header {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ion-color-medium);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.set-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr;
+    padding: 8px 12px;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 8px;
+
+    .set-number {
+        text-align: center;
+        font-weight: 700;
+        color: var(--ion-color-primary);
+    }
+}
+
+.premium-input {
+    --background: rgba(255, 255, 255, 0.05);
+    --padding-start: 8px;
+    --padding-end: 8px;
+    border-radius: 8px;
+    text-align: center;
+    height: 40px;
+    font-weight: 600;
+}
+
+.feedback-panel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-weight: 600;
+
+    ion-icon {
+        font-size: 24px;
+    }
+
+    &.success {
+        background: rgba(var(--ion-color-success-rgb), 0.1);
+        color: var(--ion-color-success);
+    }
+
+    &.danger {
+        background: rgba(var(--ion-color-danger-rgb), 0.1);
+        color: var(--ion-color-danger);
+    }
+
+    &.warning {
+        background: rgba(var(--ion-color-warning-rgb), 0.1);
+        color: var(--ion-color-warning);
+    }
+}

@@ -1,0 +1,65 @@
+<div class="dashboard-container">
+    <div *ngIf="isLoading" class="loading-state">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading">
+        <!-- Main Stats -->
+        <div class="stats-grid">
+            <div class="stat-card glass-panel">
+                <ion-icon name="people-outline" color="primary"></ion-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Total Athletes</span>
+                    <span class="stat-value">{{ stats.athleteCount }}</span>
+                </div>
+            </div>
+
+            <div class="stat-card glass-panel">
+                <ion-icon name="document-text-outline" color="secondary"></ion-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Active Plans</span>
+                    <span class="stat-value">{{ stats.planCount }}</span>
+                </div>
+            </div>
+
+            <div class="stat-card glass-panel highlight">
+                <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+                <div class="stat-content">
+                    <span class="stat-label">Completed Today</span>
+                    <span class="stat-value">{{ stats.completedTodayCount }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity Feed -->
+        <div class="activity-section">
+            <h3 class="section-title">Recent Activity</h3>
+
+            <div *ngIf="stats.recentActivity.length === 0" class="empty-activity glass-panel">
+                <p>No recent workout activity recorded.</p>
+            </div>
+
+            <div class="activity-feed">
+                <div *ngFor="let activity of stats.recentActivity" class="activity-item glass-panel">
+                    <div class="activity-header">
+                        <ion-avatar>
+                            <div class="avatar-placeholder">{{ activity.athleteId?.email?.[0]?.toUpperCase() }}</div>
+                        </ion-avatar>
+                        <div class="activity-main">
+                            <span class="athlete-email">{{ activity.athleteId?.email }}</span>
+                            <span class="workout-name">{{ activity.workoutPlanId?.name || 'Workout' }}</span>
+                        </div>
+                        <ion-badge [color]="getFeedbackColor(activity.feedbackColor)">
+                            {{ activity.feedbackColor }}
+                        </ion-badge>
+                    </div>
+                    <div class="activity-footer">
+                        <span class="activity-date">{{ activity.date | date:'shortTime' }} • {{ activity.date |
+                            date:'mediumDate' }}</span>
+                        <span class="activity-volume">{{ activity.totalVolume || 0 }} kg total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,7 +7,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">My Plans</ion-title>
+    <ion-title class="header-page-title">My Workout Plans</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -18,13 +18,34 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let plan of plans" [routerLink]="['/session-view', plan._id]">
-      <ion-label>
-        <h3>{{ plan.name }}</h3>
-        <p>{{ plan.sessions.length }} Sessions</p>
-      </ion-label>
-      <ion-icon name="chevron-forward" slot="end"></ion-icon>
-    </ion-item>
-  </ion-list>
+  <div class="welcome-section">
+    <h2 class="text-orange">Hello, Athlete!</h2>
+    <p>Select a plan to start your session.</p>
+  </div>
+
+  <div class="plan-grid">
+    <ion-card *ngFor="let plan of plans" [routerLink]="['/session-view', plan._id]" class="premium-card">
+      <ion-card-header>
+        <div class="plan-header">
+          <ion-card-title>{{ plan.name }}</ion-card-title>
+          <ion-badge color="primary">{{ plan.sessions.length }} Sessions</ion-badge>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="plan-info">
+          <ion-icon name="calendar-outline" color="primary"></ion-icon>
+          <span>Ready for your next workout</span>
+        </div>
+      </ion-card-content>
+      <div class="card-footer">
+        <span>Start Session</span>
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+    </ion-card>
+  </div>
+
+  <div *ngIf="plans.length === 0" class="empty-state glass-panel">
+    <ion-icon name="barbell-outline" color="medium"></ion-icon>
+    <p>No plans assigned to you yet.</p>
+  </div>
 </ion-content>

@@ -7,7 +7,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">Coach Dashboard</ion-title>
+    <ion-title class="header-page-title">Coach Dashboard - {{ coachName }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -17,25 +17,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <h2>Exercises</h2>
-  <ion-list>
-    <ion-item *ngFor="let ex of exercises">
-      <ion-label>
-        <h3>{{ ex.name }}</h3>
-        <p>{{ ex.muscleGroup }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content>
+  <!-- Navigation Tabs -->
+  <div class="nav-container">
+    <ion-segment [(ngModel)]="currentTab" (ionChange)="switchTab($any($event).detail.value)">
+      <ion-segment-button value="dashboard">
+        <ion-icon name="stats-chart-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="exercises">
+        <ion-icon name="barbell-outline"></ion-icon>
+        <ion-label>Exercises</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="plans">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>Plans</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="athletes">
+        <ion-icon name="people-outline"></ion-icon>
+        <ion-label>Athletes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
+  <!-- Content Sections -->
+  <div class="content-container">
+    <app-coach-dashboard *ngIf="currentTab === 'dashboard'"></app-coach-dashboard>
+    <app-coach-exercises *ngIf="currentTab === 'exercises'"></app-coach-exercises>
+    <app-coach-plans *ngIf="currentTab === 'plans'"></app-coach-plans>
+    <app-coach-athletes *ngIf="currentTab === 'athletes'"></app-coach-athletes>
+  </div>
+
+  <!-- Generate Code FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addExercisePrompt()" color="primary">
-      <ion-icon name="barbell"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button (click)="createPlanPrompt()" color="secondary" class="ion-margin-top">
-      <ion-icon name="calendar"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button (click)="generateCodePrompt()" color="tertiary" class="ion-margin-top">
+    <ion-fab-button (click)="generateCodePrompt()" color="tertiary">
       <ion-icon name="key"></ion-icon>
     </ion-fab-button>
   </ion-fab>

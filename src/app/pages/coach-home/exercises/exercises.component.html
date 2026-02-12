@@ -1,0 +1,70 @@
+<div class="exercises-container">
+    <!-- Filters Section -->
+    <div class="filters-panel glass-panel">
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="applyFilters()" placeholder="Search exercises..."
+            mode="ios"></ion-searchbar>
+
+        <div class="select-grid">
+            <ion-item class="filter-item">
+                <ion-label position="stacked">Muscle Group</ion-label>
+                <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilters()" placeholder="All">
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let m of muscleGroups" [value]="m">{{ m }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="filter-item">
+                <ion-label position="stacked">By Routine</ion-label>
+                <ion-select [(ngModel)]="selectedRoutine" (ionChange)="applyFilters()" placeholder="All">
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let r of routines" [value]="r.id">{{ r.name }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="filter-item">
+                <ion-label position="stacked">By Athlete</ion-label>
+                <ion-select [(ngModel)]="selectedAthlete" (ionChange)="applyFilters()" placeholder="All">
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let a of athletes" [value]="a.id">{{ a.email }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <!-- Exercise List -->
+    <div *ngIf="!isLoading" class="exercise-grid">
+        <ion-card *ngFor="let ex of filteredExercises" class="premium-card">
+            <ion-card-header>
+                <div class="card-header-row">
+                    <ion-card-title>{{ ex.name }}</ion-card-title>
+                    <div class="action-buttons">
+                        <ion-button fill="clear" color="secondary" (click)="editExercise(ex)">
+                            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button fill="clear" color="danger" (click)="deleteExercise(ex)">
+                            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                        </ion-button>
+                    </div>
+                </div>
+                <ion-card-subtitle>{{ ex.muscleGroup }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p *ngIf="ex.techniqueDescription" class="description line-clamp">{{ ex.techniqueDescription }}</p>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="!isLoading && filteredExercises.length === 0" class="empty-state">
+        <p>No exercises found matching your filters.</p>
+    </div>
+
+    <ion-button expand="block" (click)="addExercise()" class="ion-margin-top cta-primary">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        New Exercise
+    </ion-button>
+</div>

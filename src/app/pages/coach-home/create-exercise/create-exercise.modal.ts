@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -7,11 +7,22 @@ import { ModalController } from '@ionic/angular';
     styleUrls: ['./create-exercise.modal.scss'],
     standalone: false
 })
-export class CreateExerciseModalComponent {
+export class CreateExerciseModalComponent implements OnInit {
+    @Input() exercise: any;
+
     name: string = '';
     muscleGroup: string = '';
+    isEdit: boolean = false;
 
     constructor(private modalCtrl: ModalController) { }
+
+    ngOnInit() {
+        if (this.exercise) {
+            this.name = this.exercise.name;
+            this.muscleGroup = this.exercise.muscleGroup;
+            this.isEdit = true;
+        }
+    }
 
     close() {
         this.modalCtrl.dismiss();

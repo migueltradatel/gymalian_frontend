@@ -1,0 +1,62 @@
+<div class="athletes-container">
+    <div *ngIf="isLoading" class="loading-state">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading" class="athlete-list">
+        <div *ngFor="let athlete of athletes" class="athlete-card-wrapper">
+            <ion-item button (click)="toggleAthlete(athlete._id)" lines="none" class="athlete-item glass-panel">
+                <ion-avatar slot="start">
+                    <div class="avatar-placeholder">{{ athlete.email[0].toUpperCase() }}</div>
+                </ion-avatar>
+                <ion-label>
+                    <h2>{{ athlete.email }}</h2>
+                    <p>Subscription: {{ athlete.subscriptionExpiry | date:'shortDate' }}</p>
+                </ion-label>
+                <ion-icon [name]="isExpanded(athlete._id) ? 'chevron-up-outline' : 'chevron-down-outline'" slot="end"
+                    color="medium"></ion-icon>
+            </ion-item>
+
+            <div *ngIf="isExpanded(athlete._id)" class="athlete-details-content glass-panel">
+                <div *ngIf="!getAthleteDetails(athlete._id)" class="detail-loading">
+                    <ion-spinner size="small"></ion-spinner>
+                </div>
+
+                <div *ngIf="getAthleteDetails(athlete._id) as details">
+                    <!-- TODO: Refinement based on user request "Session-View" below plans -->
+                    <div *ngIf="details.plans.length === 0" class="no-data">No assigned plans.</div>
+
+                    <div *ngFor="let plan of details.plans" class="plan-detail-box">
+                        <h3 class="plan-title">{{ plan.name }}</h3>
+                        <div class="log-history">
+                            <h4>Activity History</h4>
+                            <div *ngIf="details.logs.length === 0" class="no-data">No completed sessions yet.</div>
+
+                            <!-- Only logs related to this plan -->
+                            <div *ngFor="let log of details.logs">
+                                <div *ngIf="log.workoutPlanId === plan._id" (click)="openSessionDetail(log, plan.name)"
+                                    class="session-log-card interactive">
+                                    <div class="log-info">
+                                        <span class="log-date">{{ log.date | date:'mediumDate' }}</span>
+                                        <ion-badge
+                                            [color]="log.feedbackColor === 'GREEN' ? 'success' : (log.feedbackColor === 'RED' ? 'danger' : 'warning')">
+                                            {{ log.feedbackColor }}
+                                        </ion-badge>
+                                    </div>
+                                    <div class="log-stats">
+                                        <span>Volume: {{ log.totalVolume || 0 }} kg</span>
+                                        <span>Exercises: {{ log.exercises.length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && athletes.length === 0" class="empty-state">
+        <p>You don't have any athletes assigned yet.</p>
+    </div>
+</div>

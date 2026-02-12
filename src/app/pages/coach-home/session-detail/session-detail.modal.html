@@ -1,0 +1,65 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-title>Workout Detail</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()" color="danger">
+                <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div class="session-info glass-panel">
+        <div class="info-row">
+            <span class="label">Plan:</span>
+            <span class="value text-orange">{{ planName }}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Date:</span>
+            <span class="value">{{ log.date | date:'medium' }}</span>
+        </div>
+        <div class="info-row">
+            <span class="label">Performance:</span>
+            <ion-badge
+                [color]="log.feedbackColor === 'GREEN' ? 'success' : (log.feedbackColor === 'RED' ? 'danger' : 'warning')">
+                {{ log.feedbackColor }}
+            </ion-badge>
+        </div>
+        <div class="info-row">
+            <span class="label">Total Volume:</span>
+            <span class="value">{{ log.totalVolume || 0 }} kg</span>
+        </div>
+    </div>
+
+    <div class="exercise-list">
+        <ion-card *ngFor="let exLog of log.exercises" class="exercise-detail-card glass-panel">
+            <ion-card-header>
+                <ion-card-title>{{ exLog.exerciseId?.name }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th>Set</th>
+                            <th>Weight</th>
+                            <th>Reps</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let set of exLog.sets">
+                            <td>{{ set.setNumber }}</td>
+                            <td>{{ set.weight }} kg</td>
+                            <td>{{ set.reps }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="log.notes" class="notes-section glass-panel">
+        <h3>Notes</h3>
+        <p>{{ log.notes }}</p>
+    </div>
+</ion-content>

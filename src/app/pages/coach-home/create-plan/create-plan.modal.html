@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
     <ion-toolbar>
-        <ion-title>New Workout Plan</ion-title>
+        <ion-title>{{ step === 1 ? 'New Workout Plan' : 'Select Exercises' }}</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="close()" color="danger">
                 <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
@@ -10,24 +10,68 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-list>
-        <ion-item>
-            <ion-label position="stacked">Plan Name</ion-label>
-            <ion-input [(ngModel)]="planName" placeholder="Enter plan name"></ion-input>
-        </ion-item>
+    <div *ngIf="isLoading" class="loading-state">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
 
-        <ion-item>
-            <ion-label position="stacked">Assign to Athlete (Optional)</ion-label>
-            <ion-select [(ngModel)]="selectedAthleteId" placeholder="Select Athlete">
-                <ion-select-option value="">None (General Template)</ion-select-option>
-                <ion-select-option *ngFor="let athlete of athletes" [value]="athlete._id">
-                    {{ athlete.email }}
-                </ion-select-option>
-            </ion-select>
-        </ion-item>
-    </ion-list>
+    <div *ngIf="!isLoading">
+        <!-- STEP 1: Plan Info -->
+        <div *ngIf="step === 1" class="step-container">
+            <ion-list lines="none">
+                <ion-item class="premium-input-item">
+                    <ion-label position="stacked">Plan Name</ion-label>
+                    <ion-input [(ngModel)]="planName" placeholder="e.g. Summer Shred"></ion-input>
+                </ion-item>
 
-    <ion-button expand="block" (click)="create()" [disabled]="!planName" class="ion-margin-top">
-        Create Plan
-    </ion-button>
+                <ion-item class="premium-input-item">
+                    <ion-label position="stacked">Assign to Athlete (Optional)</ion-label>
+                    <ion-select [(ngModel)]="selectedAthleteId" placeholder="Select Athlete">
+                        <ion-select-option value="">General Template</ion-select-option>
+                        <ion-select-option *ngFor="let athlete of athletes" [value]="athlete._id">
+                            {{ athlete.email }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" (click)="nextStep()" [disabled]="!planName" class="cta-primary ion-margin-top">
+                Continue to Exercises
+                <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+        </div>
+
+        <!-- STEP 2: Exercise Selection -->
+        <div *ngIf="step === 2" class="step-container">
+            <div class="selection-header glass-panel">
+                <ion-item class="filter-item">
+                    <ion-label position="stacked">Filter by Muscle Group</ion-label>
+                    <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilter()" placeholder="All">
+                        <ion-select-option value="">All</ion-select-option>
+                        <ion-select-option *ngFor="let m of muscleGroups" [value]="m">{{ m }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <p class="count-label">{{ selectedExerciseIds.length }} Exercises Selected</p>
+            </div>
+
+            <ion-list lines="none" class="exercise-selection-list">
+                <ion-item *ngFor="let ex of filteredExercises" (click)="toggleExercise(ex._id)" class="selection-item">
+                    <ion-checkbox slot="start" [checked]="isExerciseSelected(ex._id)"></ion-checkbox>
+                    <ion-label>
+                        <h3>{{ ex.name }}</h3>
+                        <p>{{ ex.muscleGroup }}</p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+
+            <div class="footer-buttons">
+                <ion-button fill="outline" (click)="prevStep()" class="ion-margin-top">
+                    Back
+                </ion-button>
+                <ion-button expand="block" (click)="create()" [disabled]="selectedExerciseIds.length === 0"
+                    class="cta-primary ion-margin-top">
+                    Create Plan
+                </ion-button>
+            </div>
+        </div>
+    </div>
 </ion-content>

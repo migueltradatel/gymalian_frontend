@@ -1,0 +1,42 @@
+<div class="plans-container">
+    <div *ngIf="isLoading" class="loading-state">
+        <ion-spinner color="primary"></ion-spinner>
+    </div>
+
+    <div *ngIf="!isLoading" class="plan-grid">
+        <ion-card *ngFor="let plan of plans" class="premium-card">
+            <ion-card-header>
+                <div class="plan-header">
+                    <ion-card-title>{{ plan.name }}</ion-card-title>
+                    <div class="header-right">
+                        <ion-badge color="secondary">{{ plan.sessions.length }} Sessions</ion-badge>
+                        <ion-button fill="clear" color="danger" (click)="deletePlan(plan)">
+                            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                        </ion-button>
+                    </div>
+                </div>
+            </ion-card-header>
+            <ion-card-content>
+                <div class="plan-details">
+                    <div class="detail-item">
+                        <ion-icon name="person-outline"></ion-icon>
+                        <span>Assigned to: {{ plan.athleteId ? plan.athleteId.email : 'General Template' }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span>Created: {{ plan.createdAt | date:'shortDate' }}</span>
+                    </div>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <div *ngIf="!isLoading && plans.length === 0" class="empty-state">
+        <p>No workout plans found.</p>
+    </div>
+
+    <ion-button expand="block" (click)="createPlan()" class="ion-margin-top cta-primary">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        New Workout Plan
+    </ion-button>
+</div>
