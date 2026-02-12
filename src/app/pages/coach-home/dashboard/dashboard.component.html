@@ -4,7 +4,7 @@
     </div>
 
     <div *ngIf="!isLoading">
-        <!-- Main Stats -->
+        <!-- Main Stats Row -->
         <div class="stats-grid">
             <div class="stat-card glass-panel">
                 <ion-icon name="people-outline" color="primary"></ion-icon>
@@ -23,10 +23,25 @@
             </div>
 
             <div class="stat-card glass-panel highlight">
-                <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+                <div class="radial-progress-container">
+                    <span class="completion-value">{{ completionRate | number:'1.0-0' }}%</span>
+                </div>
                 <div class="stat-content">
-                    <span class="stat-label">Completed Today</span>
-                    <span class="stat-value">{{ stats.completedTodayCount }}</span>
+                    <span class="stat-label">Completion today</span>
+                    <span class="stat-value">{{ stats.completedTodayCount }} logged</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Charts -->
+        <div class="analytics-row">
+            <div class="chart-container glass-panel">
+                <div class="chart-header">
+                    <h3>Volume Trends</h3>
+                    <p>Total kg moved by all athletes (Last 14 days)</p>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas #volumeChart></canvas>
                 </div>
             </div>
         </div>
@@ -34,11 +49,9 @@
         <!-- Recent Activity Feed -->
         <div class="activity-section">
             <h3 class="section-title">Recent Activity</h3>
-
             <div *ngIf="stats.recentActivity.length === 0" class="empty-activity glass-panel">
                 <p>No recent workout activity recorded.</p>
             </div>
-
             <div class="activity-feed">
                 <div *ngFor="let activity of stats.recentActivity" class="activity-item glass-panel">
                     <div class="activity-header">

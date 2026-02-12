@@ -47,6 +47,12 @@
     background: rgba(255, 255, 255, 0.02);
 }
 
+.athlete-detail-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
 .detail-loading,
 .no-data {
     text-align: center;

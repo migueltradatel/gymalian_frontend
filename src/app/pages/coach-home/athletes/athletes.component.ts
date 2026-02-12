@@ -78,4 +78,40 @@ export class CoachAthletesComponent implements OnInit {
     isExpanded(athleteId: string): boolean {
         return this.expandedAthleteId === athleteId;
     }
+
+    exportToCSV(athlete: any) {
+        const details = this.getAthleteDetails(athlete._id);
+        if (!details || !details.logs || details.logs.length === 0) return;
+
+        const headers = ['Date', 'Plan', 'Exercise', 'Set', 'Weight', 'Reps'];
+        let csvContent = headers.join(',') + '\n';
+
+        details.logs.forEach((log: any) => {
+            const planName = details.plans.find((p: any) => p._id === log.workoutPlanId)?.name || 'Unknown';
+            log.exercises.forEach((ex: any) => {
+                const exName = ex.exerciseId?.name || 'Unknown';
+                ex.sets.forEach((set: any) => {
+                    const row = [
+                        new Date(log.date).toLocaleDateString(),
+                        `"${planName}"`,
+                        `"${exName}"`,
+                        set.setNumber,
+                        set.weight,
+                        set.reps
+                    ];
+                    csvContent += row.join(',') + '\n';
+                });
+            });
+        });
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `progress_${athlete.email}_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 }

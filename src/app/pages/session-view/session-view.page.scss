@@ -34,10 +34,10 @@
 
 .table-header {
     display: grid;
-    grid-template-columns: 50px 1fr 1fr;
+    grid-template-columns: 40px 1fr 1fr 1fr;
     padding: 12px;
     background: rgba(255, 255, 255, 0.05);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--ion-color-medium);
     text-transform: uppercase;
@@ -46,27 +46,88 @@
 
 .set-row {
     display: grid;
-    grid-template-columns: 50px 1fr 1fr;
+    grid-template-columns: 40px 1fr 1fr 1fr;
     padding: 8px 12px;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    gap: 8px;
+    gap: 6px;
 
     .set-number {
         text-align: center;
         font-weight: 700;
         color: var(--ion-color-primary);
+        transition: all 0.3s ease;
+
+        &.completed {
+            color: var(--ion-color-success);
+            transform: scale(1.2);
+        }
+    }
+}
+
+/* Floating Timer Styles */
+.floating-timer-container {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    z-index: 999;
+    padding: 10px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 107, 0, 0.3);
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    .timer-circle {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 107, 0, 0.1);
+        border: 2px solid var(--ion-color-primary);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .time-left {
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 8px;
+            font-weight: 700;
+            color: var(--ion-color-primary);
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px) scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
     }
 }
 
 .premium-input {
     --background: rgba(255, 255, 255, 0.05);
-    --padding-start: 8px;
-    --padding-end: 8px;
+    --padding-start: 4px;
+    --padding-end: 4px;
     border-radius: 8px;
     text-align: center;
     height: 40px;
     font-weight: 600;
+    font-size: 14px;
 }
 
 .feedback-panel {

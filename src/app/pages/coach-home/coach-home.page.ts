@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { NotificationService } from '../../services/notification.service';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { CreatePlanModalComponent } from './create-plan/create-plan.modal';
 import { CreateExerciseModalComponent } from './create-exercise/create-exercise.modal';
+import { NotificationsPopoverComponent } from '../../components/notifications-popover/notifications-popover.component';
 
 @Component({
   selector: 'app-coach-home',
@@ -19,8 +21,10 @@ export class CoachHomePage implements OnInit {
   constructor(
     private api: ApiService,
     private auth: AuthService,
+    public notificationService: NotificationService,
     private alertCtrl: AlertController,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
@@ -29,13 +33,21 @@ export class CoachHomePage implements OnInit {
   }
 
   loadCoachName() {
-    // For now, use a default name
-    // In a full implementation, you'd fetch the user profile from the backend
     this.coachName = 'Coach';
   }
 
   switchTab(tab: string) {
     this.currentTab = tab;
+  }
+
+  async openNotifications(ev: any) {
+    const popover = await this.popoverCtrl.create({
+      component: NotificationsPopoverComponent,
+      event: ev,
+      translucent: true,
+      cssClass: 'notifications-popover'
+    });
+    await popover.present();
   }
 
   loadExercises() {
@@ -54,11 +66,8 @@ export class CoachHomePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: CreateExerciseModalComponent
     });
-
     await modal.present();
-
     const { data } = await modal.onWillDismiss();
-
     if (data) {
       this.createExercise(data);
     }
@@ -68,18 +77,14 @@ export class CoachHomePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: CreatePlanModalComponent
     });
-
     await modal.present();
-
     const { data } = await modal.onWillDismiss();
-
     if (data) {
       this.createPlan(data);
     }
   }
 
   createPlan(data: any) {
-    // Create a plan with all current exercises as one session
     const payload = {
       name: data.name,
       athleteId: data.athleteId || undefined,
@@ -92,7 +97,6 @@ export class CoachHomePage implements OnInit {
         }))
       }]
     };
-
     this.api.post('/workouts', payload).subscribe(() => {
       alert('Plan created with all exercises!');
     });

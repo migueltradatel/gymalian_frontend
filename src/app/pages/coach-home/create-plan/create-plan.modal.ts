@@ -18,6 +18,9 @@ export class CreatePlanModalComponent implements OnInit {
     filteredExercises: any[] = [];
     selectedExerciseIds: string[] = [];
 
+    // Detailed configuration for each selected exercise
+    exerciseConfigs: any[] = [];
+
     muscleGroups: string[] = [];
     selectedMuscle: string = '';
     isLoading = false;
@@ -71,13 +74,33 @@ export class CreatePlanModalComponent implements OnInit {
     nextStep() {
         if (this.step === 1 && this.planName) {
             this.step = 2;
+        } else if (this.step === 2 && this.selectedExerciseIds.length > 0) {
+            this.prepareStep3();
+            this.step = 3;
         }
     }
 
     prevStep() {
-        if (this.step === 2) {
-            this.step = 1;
+        if (this.step > 1) {
+            this.step--;
         }
+    }
+
+    prepareStep3() {
+        // Initialize configs for selected exercises if not already present
+        this.exerciseConfigs = this.selectedExerciseIds.map(id => {
+            const existing = this.exerciseConfigs.find(c => c.exerciseId === id);
+            if (existing) return existing;
+
+            const ex = this.exercises.find(e => e._id === id);
+            return {
+                exerciseId: id,
+                name: ex.name,
+                targetSets: 3,
+                targetReps: '10',
+                targetRPE: 8
+            };
+        });
     }
 
     close() {
@@ -85,21 +108,20 @@ export class CreatePlanModalComponent implements OnInit {
     }
 
     create() {
-        if (!this.planName || this.selectedExerciseIds.length === 0) {
+        if (!this.planName || this.exerciseConfigs.length === 0) {
             return;
         }
 
-        // Prepare sessions (for now 1 session with all selected exercises as per current logic, 
-        // but formatted correctly for the API)
         const payload = {
             name: this.planName,
             athleteId: this.selectedAthleteId || undefined,
             sessions: [{
                 dayName: 'Day 1',
-                exercises: this.selectedExerciseIds.map(id => ({
-                    exerciseId: id,
-                    targetSets: 3,
-                    targetReps: '10'
+                exercises: this.exerciseConfigs.map(config => ({
+                    exerciseId: config.exerciseId,
+                    targetSets: config.targetSets,
+                    targetReps: config.targetReps,
+                    targetRPE: config.targetRPE
                 }))
             }]
         };

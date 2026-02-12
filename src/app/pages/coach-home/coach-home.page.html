@@ -10,6 +10,14 @@
     <ion-title class="header-page-title">Coach Dashboard - {{ coachName }}</ion-title>
 
     <ion-buttons slot="end">
+      <!-- Notification Bell -->
+      <ion-button (click)="openNotifications($event)" class="notification-btn">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-badge *ngIf="(notificationService.unreadCount$ | async) as count" color="danger" class="notif-badge">
+          {{ count }}
+        </ion-badge>
+      </ion-button>
+
       <ion-button (click)="logout()">
         <ion-icon name="log-out-outline" color="secondary"></ion-icon>
       </ion-button>
@@ -40,7 +48,6 @@
     </ion-segment>
   </div>
 
-  <!-- Content Sections -->
   <div class="content-container">
     <app-coach-dashboard *ngIf="currentTab === 'dashboard'"></app-coach-dashboard>
     <app-coach-exercises *ngIf="currentTab === 'exercises'"></app-coach-exercises>
@@ -48,7 +55,6 @@
     <app-coach-athletes *ngIf="currentTab === 'athletes'"></app-coach-athletes>
   </div>
 
-  <!-- Generate Code FAB -->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="generateCodePrompt()" color="tertiary">
       <ion-icon name="key"></ion-icon>

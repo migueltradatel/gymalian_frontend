@@ -23,7 +23,13 @@
                 </div>
 
                 <div *ngIf="getAthleteDetails(athlete._id) as details">
-                    <!-- TODO: Refinement based on user request "Session-View" below plans -->
+                    <div class="athlete-detail-header">
+                        <ion-button fill="clear" color="secondary" size="small" (click)="exportToCSV(athlete)"
+                            [disabled]="details.logs.length === 0">
+                            <ion-icon name="download-outline" slot="start"></ion-icon>
+                            Export History (CSV)
+                        </ion-button>
+                    </div>
                     <div *ngIf="details.plans.length === 0" class="no-data">No assigned plans.</div>
 
                     <div *ngFor="let plan of details.plans" class="plan-detail-box">

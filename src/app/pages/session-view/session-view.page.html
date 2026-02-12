@@ -4,18 +4,27 @@
       <ion-back-button defaultHref="/athlete-home" mode="ios" color="primary"></ion-back-button>
     </ion-buttons>
 
-    <ion-buttons slot="start">
-      <div class="header-brand-container">
-        <img src="assets/logo.png" alt="Logo" class="header-logo" />
-        <span class="header-brand-name">Gymalian</span>
-      </div>
-    </ion-buttons>
+    <div slot="start" class="header-brand-container">
+      <img src="assets/logo.png" alt="Logo" class="header-logo" />
+      <span class="header-brand-name">Gymalian</span>
+    </div>
 
     <ion-title class="header-page-title">{{ plan?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Floating Timer -->
+  <div *ngIf="timerActive" class="floating-timer-container glass-panel">
+    <div class="timer-circle">
+      <span class="time-left">{{ formatTime(secondsLeft) }}</span>
+      <span class="timer-label">REST</span>
+    </div>
+    <ion-button fill="clear" color="danger" (click)="stopTimer()" size="small">
+      <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+
   <div *ngIf="plan">
     <div *ngFor="let session of plan.sessions">
       <div class="session-header">
@@ -30,20 +39,25 @@
         <ion-card-content>
           <div class="target-info">
             <ion-badge color="medium" mode="ios">Target: {{ ex.targetSets }} sets x {{ ex.targetReps }} reps</ion-badge>
+            <ion-badge *ngIf="ex.targetRPE" color="tertiary" mode="ios" class="ion-margin-start">Target RPE: {{
+              ex.targetRPE }}</ion-badge>
           </div>
 
-          <div class="sets-table">
+          <div class="sets-table rpe-mode">
             <div class="table-header">
               <span>Set</span>
-              <span>Weight (Kg)</span>
+              <span>Kg</span>
               <span>Reps</span>
+              <span>RPE</span>
             </div>
-            <div *ngFor="let set of getSetsArray(ex.targetSets); let j = index" class="set-row">
-              <span class="set-number">{{ j + 1 }}</span>
+            <div *ngFor="let set of logs[i].sets; let j = index" class="set-row">
+              <span class="set-number" [class.completed]="logs[i].sets[j].completed">{{ j + 1 }}</span>
               <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].weight"
+                (ionBlur)="onSetChange(i, j)" class="premium-input"></ion-input>
+              <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].reps" (ionBlur)="onSetChange(i, j)"
                 class="premium-input"></ion-input>
-              <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].reps"
-                class="premium-input"></ion-input>
+              <ion-input type="number" placeholder="-" [(ngModel)]="logs[i].sets[j].rpe"
+                class="premium-input rpe-input"></ion-input>
             </div>
           </div>
         </ion-card-content>

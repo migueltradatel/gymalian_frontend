@@ -1,0 +1,41 @@
+ion-item {
+    --padding-start: 12px;
+    --inner-padding-end: 12px;
+
+    &.unread {
+        --background: rgba(var(--ion-color-primary-rgb), 0.05);
+        border-left: 3px solid var(--ion-color-primary);
+
+        p {
+            color: white;
+            font-weight: 600;
+        }
+    }
+}
+
+.notif-message {
+    font-size: 13px;
+    white-space: normal;
+    margin-bottom: 4px;
+}
+
+.notif-date {
+    font-size: 11px;
+    color: var(--ion-color-medium);
+}
+
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    color: var(--ion-color-medium);
+
+    ion-icon {
+        font-size: 48px;
+        margin-bottom: 12px;
+        opacity: 0.5;
+    }
+
+    p {
+        font-size: 14px;
+    }
+}
