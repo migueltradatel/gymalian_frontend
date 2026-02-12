@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar color="primary">
+<ion-header class="ion-no-border">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/athlete-home"></ion-back-button>
+      <ion-back-button defaultHref="/athlete-home" color="primary"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ plan?.name }}</ion-title>
+    <div class="header-logo-container" slot="start">
+      <img src="assets/logo.png" alt="Gymalian Logo" class="header-logo" />
+    </div>
+    <ion-title>Gymalian <span class="text-orange">{{ plan?.name }}</span></ion-title>
   </ion-toolbar>
 </ion-header>
 

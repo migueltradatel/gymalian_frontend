@@ -75,6 +75,11 @@ ion-item {
     color: transparent;
 }
 
+.text-orange {
+    color: var(--ion-color-primary);
+    font-weight: 700;
+}
+
 .glow-effect {
     box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
 }
@@ -84,4 +89,28 @@ ion-item {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
+}
+
+// Header Branding Utilities
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    overflow: hidden;
+}
+
+.header-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+ion-toolbar {
+    --background: transparent;
+    --color: white;
 }
