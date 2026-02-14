@@ -3,14 +3,42 @@
         <ion-spinner color="primary"></ion-spinner>
     </div>
 
+    <div class="filters-bar glass-panel">
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search by name..." class="premium-search"></ion-searchbar>
+
+        <div class="select-group">
+            <ion-item lines="none" class="filter-select">
+                <ion-label>Athlete</ion-label>
+                <ion-select [(ngModel)]="selectedAthleteId">
+                    <ion-select-option value="all">All Athletes</ion-select-option>
+                    <ion-select-option value="">General Templates</ion-select-option>
+                    <ion-select-option *ngFor="let athlete of athletes" [value]="athlete._id">
+                        {{ athlete.email }}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" class="filter-select">
+                <ion-label>Sort</ion-label>
+                <ion-select [(ngModel)]="sortBy">
+                    <ion-select-option value="newest">Newest First</ion-select-option>
+                    <ion-select-option value="oldest">Oldest First</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+    </div>
+
     <div *ngIf="!isLoading" class="plan-grid">
-        <ion-card *ngFor="let plan of plans" class="premium-card">
+        <ion-card *ngFor="let plan of filteredPlans" class="premium-card">
             <ion-card-header>
-                <div class="plan-header">
-                    <ion-card-title>{{ plan.name }}</ion-card-title>
-                    <div class="header-right">
-                        <ion-badge color="secondary">{{ plan.sessions.length }} Sessions</ion-badge>
-                        <ion-button fill="clear" color="danger" (click)="deletePlan(plan)">
+                <ion-card-title class="plan-title">{{ plan.name }}</ion-card-title>
+                <div class="plan-actions-row">
+                    <ion-badge color="secondary" class="sessions-badge">{{ plan.sessions.length }} Sessions</ion-badge>
+                    <div class="action-buttons">
+                        <ion-button fill="clear" color="primary" (click)="editPlan(plan)" class="action-btn">
+                            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                        </ion-button>
+                        <ion-button fill="clear" color="danger" (click)="deletePlan(plan)" class="action-btn">
                             <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
                         </ion-button>
                     </div>
@@ -31,8 +59,9 @@
         </ion-card>
     </div>
 
-    <div *ngIf="!isLoading && plans.length === 0" class="empty-state">
-        <p>No workout plans found.</p>
+    <div *ngIf="!isLoading && filteredPlans.length === 0" class="empty-state">
+        <p>{{ searchTerm || selectedAthleteId !== 'all' ? 'No matches found for your current filters.' : 'No workout
+            plans found.' }}</p>
     </div>
 
     <ion-button expand="block" (click)="createPlan()" class="ion-margin-top cta-primary">

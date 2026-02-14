@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
     <ion-toolbar>
         <ion-title>
-            <span *ngIf="step === 1">New Workout Plan</span>
+            <span *ngIf="step === 1">{{ plan ? 'Edit' : 'New' }} Workout Plan</span>
             <span *ngIf="step === 2">Select Exercises</span>
             <span *ngIf="step === 3">Configure Targets</span>
         </ion-title>
@@ -104,7 +104,7 @@
                     Back
                 </ion-button>
                 <ion-button expand="block" (click)="create()" class="cta-primary ion-margin-top">
-                    Create Plan
+                    {{ plan ? 'Save Changes' : 'Create Plan' }}
                 </ion-button>
             </div>
         </div>

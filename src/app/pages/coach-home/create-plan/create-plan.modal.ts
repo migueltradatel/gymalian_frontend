@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ApiService } from '../../../services/api.service';
 
@@ -9,6 +9,7 @@ import { ApiService } from '../../../services/api.service';
     standalone: false
 })
 export class CreatePlanModalComponent implements OnInit {
+    @Input() plan: any;
     step: number = 1;
     planName: string = '';
     selectedAthleteId: string = '';
@@ -42,6 +43,30 @@ export class CreatePlanModalComponent implements OnInit {
                 this.exercises = exercises;
                 this.extractMuscleGroups();
                 this.applyFilter();
+
+                if (this.plan) {
+                    this.planName = this.plan.name;
+                    this.selectedAthleteId = this.plan.athleteId ? (this.plan.athleteId._id || this.plan.athleteId) : '';
+
+                    // Populate exercises from the first session (assuming single session for now)
+                    if (this.plan.sessions && this.plan.sessions.length > 0) {
+                        const sessionExercises = this.plan.sessions[0].exercises;
+                        this.selectedExerciseIds = sessionExercises.map((e: any) => e.exerciseId._id || e.exerciseId);
+
+                        this.exerciseConfigs = sessionExercises.map((se: any) => {
+                            const exId = se.exerciseId._id || se.exerciseId;
+                            const exercise = this.exercises.find(e => e._id === exId);
+                            return {
+                                exerciseId: exId,
+                                name: exercise ? exercise.name : 'Unknown Exercise',
+                                targetSets: se.targetSets,
+                                targetReps: se.targetReps,
+                                targetRPE: se.targetRPE
+                            };
+                        });
+                    }
+                }
+
                 this.isLoading = false;
             });
         });

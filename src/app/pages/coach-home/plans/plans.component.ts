@@ -11,7 +11,13 @@ import { CreatePlanModalComponent } from '../create-plan/create-plan.modal';
 })
 export class CoachPlansComponent implements OnInit {
     plans: any[] = [];
+    athletes: any[] = [];
     isLoading: boolean = true;
+
+    // Filter criteria
+    searchTerm: string = '';
+    selectedAthleteId: string = 'all';
+    sortBy: string = 'newest';
 
     constructor(
         private api: ApiService,
@@ -21,6 +27,7 @@ export class CoachPlansComponent implements OnInit {
 
     ngOnInit() {
         this.loadPlans();
+        this.loadAthletes();
     }
 
     loadPlans() {
@@ -37,6 +44,39 @@ export class CoachPlansComponent implements OnInit {
         });
     }
 
+    loadAthletes() {
+        this.api.get('/auth/athletes').subscribe(athletes => {
+            this.athletes = athletes;
+        });
+    }
+
+    get filteredPlans() {
+        let filtered = [...this.plans];
+
+        // Search filter
+        if (this.searchTerm) {
+            const search = this.searchTerm.toLowerCase();
+            filtered = filtered.filter(p => p.name.toLowerCase().includes(search));
+        }
+
+        // Athlete filter
+        if (this.selectedAthleteId !== 'all') {
+            filtered = filtered.filter(p => {
+                const planAthleteId = p.athleteId ? (p.athleteId._id || p.athleteId) : '';
+                return planAthleteId === this.selectedAthleteId;
+            });
+        }
+
+        // Sorting
+        filtered.sort((a, b) => {
+            const dateA = new Date(a.createdAt).getTime();
+            const dateB = new Date(b.createdAt).getTime();
+            return this.sortBy === 'newest' ? dateB - dateA : dateA - dateB;
+        });
+
+        return filtered;
+    }
+
     async createPlan() {
         const modal = await this.modalCtrl.create({
             component: CreatePlanModalComponent
@@ -45,6 +85,20 @@ export class CoachPlansComponent implements OnInit {
         const { data } = await modal.onWillDismiss();
         if (data) {
             this.api.post('/workouts', data).subscribe(() => {
+                this.loadPlans();
+            });
+        }
+    }
+
+    async editPlan(plan: any) {
+        const modal = await this.modalCtrl.create({
+            component: CreatePlanModalComponent,
+            componentProps: { plan }
+        });
+        await modal.present();
+        const { data } = await modal.onWillDismiss();
+        if (data) {
+            this.api.put(`/workouts/${plan._id}`, data).subscribe(() => {
                 this.loadPlans();
             });
         }

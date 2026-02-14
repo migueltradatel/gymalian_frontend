@@ -3,8 +3,23 @@
         <ion-spinner color="primary"></ion-spinner>
     </div>
 
+    <div class="filters-bar glass-panel">
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search by email..." class="premium-search"></ion-searchbar>
+
+        <div class="select-group">
+            <ion-item lines="none" class="filter-select">
+                <ion-label>Sort By</ion-label>
+                <ion-select [(ngModel)]="sortBy">
+                    <ion-select-option value="expiry_desc">Newest Subscriber</ion-select-option>
+                    <ion-select-option value="expiry_asc">Oldest Subscriber</ion-select-option>
+                    <ion-select-option value="email_asc">Email (A-Z)</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </div>
+    </div>
+
     <div *ngIf="!isLoading" class="athlete-list">
-        <div *ngFor="let athlete of athletes" class="athlete-card-wrapper">
+        <div *ngFor="let athlete of filteredAthletes" class="athlete-card-wrapper">
             <ion-item button (click)="toggleAthlete(athlete._id)" lines="none" class="athlete-item glass-panel">
                 <ion-avatar slot="start">
                     <div class="avatar-placeholder">{{ athlete.email[0].toUpperCase() }}</div>
@@ -62,7 +77,7 @@
         </div>
     </div>
 
-    <div *ngIf="!isLoading && athletes.length === 0" class="empty-state">
-        <p>You don't have any athletes assigned yet.</p>
+    <div *ngIf="!isLoading && filteredAthletes.length === 0" class="empty-state">
+        <p>{{ searchTerm ? 'No athletes match your search.' : 'You don\'t have any athletes assigned yet.' }}</p>
     </div>
 </div>

@@ -4,6 +4,41 @@
     padding: 16px;
 }
 
+.filters-bar {
+    margin-bottom: 24px;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .premium-search {
+        --background: rgba(255, 255, 255, 0.05);
+        --border-radius: 12px;
+        padding: 0;
+        flex: 1;
+    }
+
+    .select-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        .filter-select {
+            --background: rgba(255, 255, 255, 0.05);
+            --border-radius: 12px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+    }
+}
+
 .plan-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -15,16 +50,55 @@
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
+
+    ion-card-header {
+        padding-bottom: 8px;
+    }
 }
 
-.plan-header {
+.plan-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ion-color-light);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.plan-actions-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
 
-    ion-card-title {
-        font-size: 20px;
-        font-weight: 600;
+    .sessions-badge {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 11px;
+        text-transform: uppercase;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 0;
+
+        .action-btn {
+            --padding-start: 8px;
+            --padding-end: 8px;
+            margin: 0;
+            height: 32px;
+            --color: var(--ion-color-medium);
+
+            &:hover {
+                --color: var(--ion-color-primary);
+            }
+
+            &[color="danger"]:hover {
+                --color: var(--ion-color-danger);
+            }
+        }
     }
 }
 

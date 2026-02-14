@@ -15,6 +15,10 @@ export class CoachAthletesComponent implements OnInit {
     expandedAthleteId: string | null = null;
     athleteDetailsMap: Map<string, any> = new Map();
 
+    // Filter criteria
+    searchTerm: string = '';
+    sortBy: string = 'expiry_desc'; // 'expiry_desc', 'expiry_asc', 'email_asc'
+
     constructor(
         private api: ApiService,
         private modalCtrl: ModalController
@@ -36,6 +40,30 @@ export class CoachAthletesComponent implements OnInit {
                 this.isLoading = false;
             }
         });
+    }
+
+    get filteredAthletes() {
+        let filtered = [...this.athletes];
+
+        // Search filter (by email)
+        if (this.searchTerm) {
+            const search = this.searchTerm.toLowerCase();
+            filtered = filtered.filter(a => a.email.toLowerCase().includes(search));
+        }
+
+        // Sorting
+        filtered.sort((a, b) => {
+            if (this.sortBy === 'expiry_desc') {
+                return new Date(b.subscriptionExpiry).getTime() - new Date(a.subscriptionExpiry).getTime();
+            } else if (this.sortBy === 'expiry_asc') {
+                return new Date(a.subscriptionExpiry).getTime() - new Date(b.subscriptionExpiry).getTime();
+            } else if (this.sortBy === 'email_asc') {
+                return a.email.localeCompare(b.email);
+            }
+            return 0;
+        });
+
+        return filtered;
     }
 
     toggleAthlete(athleteId: string) {

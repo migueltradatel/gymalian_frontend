@@ -4,6 +4,41 @@
     padding: 16px;
 }
 
+.filters-bar {
+    margin-bottom: 24px;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .premium-search {
+        --background: rgba(255, 255, 255, 0.05);
+        --border-radius: 12px;
+        padding: 0;
+        flex: 1;
+    }
+
+    .select-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        .filter-select {
+            --background: rgba(255, 255, 255, 0.05);
+            --border-radius: 12px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+    }
+}
+
 .athlete-card-wrapper {
     margin-bottom: 12px;
 }
