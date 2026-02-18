@@ -16,7 +16,9 @@ export class SessionViewPage implements OnInit, OnDestroy {
   feedbackMessage: string = '';
   feedbackColor: string = 'medium';
 
-  // Timer State
+  // Timer & Input State
+  pressTimer: any;
+  isLongPressTriggered: boolean = false;
   timerActive: boolean = false;
   secondsLeft: number = 0;
   timerInterval: any;
@@ -51,6 +53,8 @@ export class SessionViewPage implements OnInit, OnDestroy {
     const session = this.plan.sessions[0];
     this.logs = session.exercises.map((ex: any) => ({
       exerciseId: ex.exerciseId._id,
+      lastVolume: ex.lastPerformance?.volume || 0,
+      currentVolume: 0,
       sets: Array(ex.targetSets).fill({}).map((_, idx) => ({
         setNumber: idx + 1,
         weight: null,
@@ -68,6 +72,50 @@ export class SessionViewPage implements OnInit, OnDestroy {
       set.completed = true;
       this.startRestTimer();
     }
+    this.updateCurrentVolume(exerciseIndex);
+  }
+
+  updateCurrentVolume(exerciseIndex: number) {
+    const log = this.logs[exerciseIndex];
+    log.currentVolume = log.sets.reduce((sum: number, s: any) => sum + (Number(s.weight || 0) * Number(s.reps || 0)), 0);
+  }
+
+  getVolumeProgress(exerciseIndex: number): string {
+    const log = this.logs[exerciseIndex];
+    if (log.lastVolume === 0) return 'neutral';
+    if (log.currentVolume > log.lastVolume) return 'improvement';
+    if (log.currentVolume < log.lastVolume) return 'decline';
+    return 'neutral';
+  }
+
+  getVolumeDifference(exerciseIndex: number): number {
+    const log = this.logs[exerciseIndex];
+    return log.currentVolume - log.lastVolume;
+  }
+
+  onPressStart(exIndex: number, setIndex: number, field: string, direction: number) {
+    this.isLongPressTriggered = false;
+    this.pressTimer = setTimeout(() => {
+      this.isLongPressTriggered = true;
+      let amount = 1;
+      if (field === 'weight') amount = 10;
+      if (field === 'reps' || field === 'rpe') amount = 5;
+      this.adjustValue(exIndex, setIndex, field, direction * amount);
+    }, 600); // 600ms for long press
+  }
+
+  onPressEnd(exIndex: number, setIndex: number, field: string, direction: number) {
+    clearTimeout(this.pressTimer);
+    if (!this.isLongPressTriggered) {
+      this.adjustValue(exIndex, setIndex, field, direction * 1);
+    }
+  }
+
+  adjustValue(exIndex: number, setIndex: number, field: string, delta: number) {
+    const set = this.logs[exIndex].sets[setIndex];
+    let currentValue = Number(set[field] || 0);
+    set[field] = Math.max(0, currentValue + delta);
+    this.onSetChange(exIndex, setIndex);
   }
 
   startRestTimer() {

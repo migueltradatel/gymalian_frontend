@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class ApiService {
-    private apiUrl = 'http://localhost:3000'; // Hardcoded for MVP, ideally from environment
+    private apiUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
 

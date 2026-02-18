@@ -33,31 +33,86 @@
 
       <ion-card *ngFor="let ex of session.exercises; let i = index" class="exercise-card glass-panel">
         <ion-card-header>
-          <ion-card-title>{{ ex.exerciseId.name }}</ion-card-title>
-          <ion-card-subtitle>{{ ex.exerciseId.muscleGroup }}</ion-card-subtitle>
+          <div class="header-main">
+            <div class="exercise-info">
+              <ion-card-title>{{ ex.exerciseId.name }}</ion-card-title>
+              <ion-card-subtitle>{{ ex.exerciseId.muscleGroup }}</ion-card-subtitle>
+            </div>
+            <div class="volume-header-metrics">
+              <div class="volume-pill" [ngClass]="getVolumeProgress(i)">
+                <span class="pill-label">VOLUME</span>
+                <span class="pill-value">{{ logs[i].currentVolume }}</span>
+                <span class="pill-trend" *ngIf="logs[i].currentVolume > 0">
+                  <ion-icon [name]="getVolumeDifference(i) >= 0 ? 'trending-up' : 'trending-down'"></ion-icon>
+                  {{ getVolumeDifference(i) > 0 ? '+' : '' }}{{ getVolumeDifference(i) }}
+                </span>
+              </div>
+              <div class="last-volume-tag" *ngIf="logs[i].lastVolume > 0">
+                Prev: {{ logs[i].lastVolume }}
+              </div>
+            </div>
+          </div>
         </ion-card-header>
         <ion-card-content>
-          <div class="target-info">
-            <ion-badge color="medium" mode="ios">Target: {{ ex.targetSets }} sets x {{ ex.targetReps }} reps</ion-badge>
-            <ion-badge *ngIf="ex.targetRPE" color="tertiary" mode="ios" class="ion-margin-start">Target RPE: {{
-              ex.targetRPE }}</ion-badge>
+          <div class="target-info-row">
+            <div class="target-badge">
+              <ion-icon name="repeat-outline"></ion-icon>
+              <span>{{ ex.targetSets }} × {{ ex.targetReps }}</span>
+            </div>
+            <div class="target-badge rpe" *ngIf="ex.targetRPE">
+              <ion-icon name="flash-outline"></ion-icon>
+              <span>RPE {{ ex.targetRPE }}</span>
+            </div>
           </div>
 
           <div class="sets-table rpe-mode">
             <div class="table-header">
-              <span>Set</span>
-              <span>Kg</span>
-              <span>Reps</span>
-              <span>RPE</span>
+              <div class="header-col">
+                <span class="col-title">Set</span>
+                <span class="col-history" *ngIf="ex.lastPerformance">{{ ex.lastPerformance.setsCount }}</span>
+              </div>
+              <div class="header-col">
+                <span class="col-title">Kg</span>
+                <span class="col-history" *ngIf="ex.lastPerformance">{{ ex.lastPerformance.weight }}</span>
+              </div>
+              <div class="header-col">
+                <span class="col-title">Reps</span>
+                <span class="col-history" *ngIf="ex.lastPerformance">{{ ex.lastPerformance.reps }}</span>
+              </div>
+              <div class="header-col">
+                <span class="col-title">RPE</span>
+                <span class="col-history" *ngIf="ex.lastPerformance">{{ ex.lastPerformance.rpe }}</span>
+              </div>
             </div>
             <div *ngFor="let set of logs[i].sets; let j = index" class="set-row">
               <span class="set-number" [class.completed]="logs[i].sets[j].completed">{{ j + 1 }}</span>
-              <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].weight"
-                (ionBlur)="onSetChange(i, j)" class="premium-input"></ion-input>
-              <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].reps" (ionBlur)="onSetChange(i, j)"
-                class="premium-input"></ion-input>
-              <ion-input type="number" placeholder="-" [(ngModel)]="logs[i].sets[j].rpe"
-                class="premium-input rpe-input"></ion-input>
+
+              <div class="input-stepper">
+                <button class="stepper-btn minus" (pointerdown)="onPressStart(i, j, 'weight', -1)"
+                  (pointerup)="onPressEnd(i, j, 'weight', -1)">-</button>
+                <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].weight"
+                  (ionBlur)="onSetChange(i, j)" class="premium-input"></ion-input>
+                <button class="stepper-btn plus" (pointerdown)="onPressStart(i, j, 'weight', 1)"
+                  (pointerup)="onPressEnd(i, j, 'weight', 1)">+</button>
+              </div>
+
+              <div class="input-stepper">
+                <button class="stepper-btn minus" (pointerdown)="onPressStart(i, j, 'reps', -1)"
+                  (pointerup)="onPressEnd(i, j, 'reps', -1)">-</button>
+                <ion-input type="number" placeholder="0" [(ngModel)]="logs[i].sets[j].reps"
+                  (ionBlur)="onSetChange(i, j)" class="premium-input"></ion-input>
+                <button class="stepper-btn plus" (pointerdown)="onPressStart(i, j, 'reps', 1)"
+                  (pointerup)="onPressEnd(i, j, 'reps', 1)">+</button>
+              </div>
+
+              <div class="input-stepper">
+                <button class="stepper-btn minus" (pointerdown)="onPressStart(i, j, 'rpe', -1)"
+                  (pointerup)="onPressEnd(i, j, 'rpe', -1)">-</button>
+                <ion-input type="number" placeholder="-" [(ngModel)]="logs[i].sets[j].rpe"
+                  class="premium-input rpe-input"></ion-input>
+                <button class="stepper-btn plus" (pointerdown)="onPressStart(i, j, 'rpe', 1)"
+                  (pointerup)="onPressEnd(i, j, 'rpe', 1)">+</button>
+              </div>
             </div>
           </div>
         </ion-card-content>
