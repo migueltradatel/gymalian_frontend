@@ -1,15 +1,19 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/athlete-home" mode="ios" color="primary"></ion-back-button>
+      <ion-back-button defaultHref="/athlete-home" color="primary"></ion-back-button>
     </ion-buttons>
 
-    <div slot="start" class="header-brand-container">
-      <img src="assets/logo.png" alt="Logo" class="header-logo" />
-      <span class="header-brand-name">Gymalian</span>
-    </div>
+    <ion-buttons slot="start">
+      <div class="header-brand-container">
+        <img src="assets/logo.png" alt="Logo" class="header-logo" />
+        <span class="header-brand-name">Gymalian</span>
+      </div>
+    </ion-buttons>
 
     <ion-title class="header-page-title">{{ plan?.name }}</ion-title>
+
+    <ion-buttons slot="end"></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +22,7 @@
   <div *ngIf="timerActive" class="floating-timer-container glass-panel">
     <div class="timer-circle">
       <span class="time-left">{{ formatTime(secondsLeft) }}</span>
-      <span class="timer-label">REST</span>
+      <span class="timer-label">DESCANSO</span>
     </div>
     <ion-button fill="clear" color="danger" (click)="stopTimer()" size="small">
       <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
@@ -40,7 +44,7 @@
             </div>
             <div class="volume-header-metrics">
               <div class="volume-pill" [ngClass]="getVolumeProgress(i)">
-                <span class="pill-label">VOLUME</span>
+                <span class="pill-label">VOLUMEN</span>
                 <span class="pill-value">{{ logs[i].currentVolume }}</span>
                 <span class="pill-trend" *ngIf="logs[i].currentVolume > 0">
                   <ion-icon [name]="getVolumeDifference(i) >= 0 ? 'trending-up' : 'trending-down'"></ion-icon>
@@ -48,7 +52,7 @@
                 </span>
               </div>
               <div class="last-volume-tag" *ngIf="logs[i].lastVolume > 0">
-                Prev: {{ logs[i].lastVolume }}
+                Ant: {{ logs[i].lastVolume }}
               </div>
             </div>
           </div>
@@ -68,7 +72,7 @@
           <div class="sets-table rpe-mode">
             <div class="table-header">
               <div class="header-col">
-                <span class="col-title">Set</span>
+                <span class="col-title">Serie</span>
                 <span class="col-history" *ngIf="ex.lastPerformance">{{ ex.lastPerformance.setsCount }}</span>
               </div>
               <div class="header-col">
@@ -120,7 +124,7 @@
     </div>
 
     <ion-button expand="block" (click)="submitLog()" class="cta-primary ion-margin-top">
-      Complete Workout
+      Completar Entrenamiento
       <ion-icon name="checkmark-done-outline" slot="end"></ion-icon>
     </ion-button>
 

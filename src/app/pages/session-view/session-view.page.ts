@@ -151,7 +151,7 @@ export class SessionViewPage implements OnInit, OnDestroy {
         navigator.vibrate([200, 100, 200]);
       }
       const toast = await this.toastCtrl.create({
-        message: 'Rest time over! Start next set.',
+        message: '¡Tiempo de descanso terminado! Empieza la siguiente serie.',
         duration: 3000,
         color: 'primary',
         position: 'top'
@@ -183,7 +183,7 @@ export class SessionViewPage implements OnInit, OnDestroy {
         if (this.feedbackColor === 'green') this.feedbackColor = 'success';
         if (this.feedbackColor === 'red') this.feedbackColor = 'danger';
 
-        this.feedbackMessage = `Workout saved! Progress: ${res.feedbackColor}`;
+        this.feedbackMessage = `¡Entrenamiento guardado! Progreso: ${res.feedbackColor}`;
 
         const toast = await this.toastCtrl.create({
           message: this.feedbackMessage,
@@ -194,7 +194,7 @@ export class SessionViewPage implements OnInit, OnDestroy {
       },
       (err) => {
         console.error(err);
-        alert('Error saving log');
+        alert('Error al guardar el entrenamiento');
       }
     );
   }

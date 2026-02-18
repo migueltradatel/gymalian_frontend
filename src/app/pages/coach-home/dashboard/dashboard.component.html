@@ -9,7 +9,7 @@
             <div class="stat-card glass-panel">
                 <ion-icon name="people-outline" color="primary"></ion-icon>
                 <div class="stat-content">
-                    <span class="stat-label">Total Athletes</span>
+                    <span class="stat-label">Atletas Totales</span>
                     <span class="stat-value">{{ stats.athleteCount }}</span>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="stat-card glass-panel">
                 <ion-icon name="document-text-outline" color="secondary"></ion-icon>
                 <div class="stat-content">
-                    <span class="stat-label">Active Plans</span>
+                    <span class="stat-label">Planes Activos</span>
                     <span class="stat-value">{{ stats.planCount }}</span>
                 </div>
             </div>
@@ -27,8 +27,8 @@
                     <span class="completion-value">{{ completionRate | number:'1.0-0' }}%</span>
                 </div>
                 <div class="stat-content">
-                    <span class="stat-label">Completion today</span>
-                    <span class="stat-value">{{ stats.completedTodayCount }} logged</span>
+                    <span class="stat-label">Completados hoy</span>
+                    <span class="stat-value">{{ stats.completedTodayCount }} registrados</span>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
         <div class="analytics-row">
             <div class="chart-container glass-panel">
                 <div class="chart-header">
-                    <h3>Volume Trends</h3>
-                    <p>Total kg moved by all athletes (Last 14 days)</p>
+                    <h3>Tendencias de Volumen</h3>
+                    <p>Total de kg movidos por todos los atletas (Últimos 14 días)</p>
                 </div>
                 <div class="chart-wrapper">
                     <canvas #volumeChart></canvas>
@@ -48,9 +48,9 @@
 
         <!-- Recent Activity Feed -->
         <div class="activity-section">
-            <h3 class="section-title">Recent Activity</h3>
+            <h3 class="section-title">Actividad Reciente</h3>
             <div *ngIf="stats.recentActivity.length === 0" class="empty-activity glass-panel">
-                <p>No recent workout activity recorded.</p>
+                <p>No se ha registrado actividad reciente.</p>
             </div>
             <div class="activity-feed">
                 <div *ngFor="let activity of stats.recentActivity" class="activity-item glass-panel">
@@ -60,7 +60,7 @@
                         </ion-avatar>
                         <div class="activity-main">
                             <span class="athlete-email">{{ activity.athleteId?.email }}</span>
-                            <span class="workout-name">{{ activity.workoutPlanId?.name || 'Workout' }}</span>
+                            <span class="workout-name">{{ activity.workoutPlanId?.name || 'Entrenamiento' }}</span>
                         </div>
                         <ion-badge [color]="getFeedbackColor(activity.feedbackColor)">
                             {{ activity.feedbackColor }}

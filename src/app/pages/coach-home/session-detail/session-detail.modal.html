@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
     <ion-toolbar>
-        <ion-title>Workout Detail</ion-title>
+        <ion-title>Detalle del Entrenamiento</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="close()" color="danger">
                 <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
@@ -16,18 +16,18 @@
             <span class="value text-orange">{{ planName }}</span>
         </div>
         <div class="info-row">
-            <span class="label">Date:</span>
+            <span class="label">Fecha:</span>
             <span class="value">{{ log.date | date:'medium' }}</span>
         </div>
         <div class="info-row">
-            <span class="label">Performance:</span>
+            <span class="label">Rendimiento:</span>
             <ion-badge
                 [color]="log.feedbackColor === 'GREEN' ? 'success' : (log.feedbackColor === 'RED' ? 'danger' : 'warning')">
                 {{ log.feedbackColor }}
             </ion-badge>
         </div>
         <div class="info-row">
-            <span class="label">Total Volume:</span>
+            <span class="label">Volumen Total:</span>
             <span class="value">{{ log.totalVolume || 0 }} kg</span>
         </div>
     </div>
@@ -41,8 +41,8 @@
                 <table class="detail-table">
                     <thead>
                         <tr>
-                            <th>Set</th>
-                            <th>Weight</th>
+                            <th>Serie</th>
+                            <th>Peso</th>
                             <th>Reps</th>
                             <th>RPE</th>
                         </tr>
@@ -61,7 +61,7 @@
     </div>
 
     <div *ngIf="log.notes" class="notes-section glass-panel">
-        <h3>Notes</h3>
+        <h3>Notas</h3>
         <p>{{ log.notes }}</p>
     </div>
 </ion-content>

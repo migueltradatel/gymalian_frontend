@@ -1,9 +1,9 @@
 <ion-header class="ion-no-border">
     <ion-toolbar>
         <ion-title>
-            <span *ngIf="step === 1">{{ plan ? 'Edit' : 'New' }} Workout Plan</span>
-            <span *ngIf="step === 2">Select Exercises</span>
-            <span *ngIf="step === 3">Configure Targets</span>
+            <span *ngIf="step === 1">{{ plan ? 'Editar' : 'Nuevo' }} Plan de Entrenamiento</span>
+            <span *ngIf="step === 2">Seleccionar Ejercicios</span>
+            <span *ngIf="step === 3">Configurar Objetivos</span>
         </ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="close()" color="danger">
@@ -23,14 +23,14 @@
         <div *ngIf="step === 1" class="step-container">
             <ion-list lines="none">
                 <ion-item class="premium-input-item">
-                    <ion-label position="stacked">Plan Name</ion-label>
-                    <ion-input [(ngModel)]="planName" placeholder="e.g. Summer Shred"></ion-input>
+                    <ion-label position="stacked">Nombre del Plan</ion-label>
+                    <ion-input [(ngModel)]="planName" placeholder="p. ej. Definición de Verano"></ion-input>
                 </ion-item>
 
                 <ion-item class="premium-input-item">
-                    <ion-label position="stacked">Assign to Athlete (Optional)</ion-label>
-                    <ion-select [(ngModel)]="selectedAthleteId" placeholder="Select Athlete">
-                        <ion-select-option value="">General Template</ion-select-option>
+                    <ion-label position="stacked">Asignar a Atleta (Opcional)</ion-label>
+                    <ion-select [(ngModel)]="selectedAthleteId" placeholder="Seleccionar Atleta">
+                        <ion-select-option value="">Plantilla General</ion-select-option>
                         <ion-select-option *ngFor="let athlete of athletes" [value]="athlete._id">
                             {{ athlete.email }}
                         </ion-select-option>
@@ -39,7 +39,7 @@
             </ion-list>
 
             <ion-button expand="block" (click)="nextStep()" [disabled]="!planName" class="cta-primary ion-margin-top">
-                Continue to Exercises
+                Continuar a Ejercicios
                 <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
             </ion-button>
         </div>
@@ -48,13 +48,13 @@
         <div *ngIf="step === 2" class="step-container">
             <div class="selection-header glass-panel">
                 <ion-item class="filter-item">
-                    <ion-label position="stacked">Filter by Muscle Group</ion-label>
-                    <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilter()" placeholder="All">
-                        <ion-select-option value="">All</ion-select-option>
+                    <ion-label position="stacked">Filtrar por Grupo Muscular</ion-label>
+                    <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilter()" placeholder="Todos">
+                        <ion-select-option value="">Todos</ion-select-option>
                         <ion-select-option *ngFor="let m of muscleGroups" [value]="m">{{ m }}</ion-select-option>
                     </ion-select>
                 </ion-item>
-                <p class="count-label">{{ selectedExerciseIds.length }} Exercises Selected</p>
+                <p class="count-label">{{ selectedExerciseIds.length }} Ejercicios Seleccionados</p>
             </div>
 
             <ion-list lines="none" class="exercise-selection-list">
@@ -69,11 +69,11 @@
 
             <div class="footer-buttons">
                 <ion-button fill="outline" (click)="prevStep()" class="ion-margin-top">
-                    Back
+                    Atrás
                 </ion-button>
                 <ion-button (click)="nextStep()" [disabled]="selectedExerciseIds.length === 0"
                     class="cta-primary ion-margin-top">
-                    Configure Targets
+                    Configurar Objetivos
                     <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
                 </ion-button>
             </div>
@@ -85,7 +85,7 @@
                 <h4>{{ config.name }}</h4>
                 <div class="config-grid">
                     <ion-item class="premium-input-item">
-                        <ion-label position="stacked">Sets</ion-label>
+                        <ion-label position="stacked">Series</ion-label>
                         <ion-input type="number" [(ngModel)]="config.targetSets"></ion-input>
                     </ion-item>
                     <ion-item class="premium-input-item">
@@ -93,7 +93,7 @@
                         <ion-input [(ngModel)]="config.targetReps"></ion-input>
                     </ion-item>
                     <ion-item class="premium-input-item">
-                        <ion-label position="stacked">Target RPE</ion-label>
+                        <ion-label position="stacked">RPE Objetivo</ion-label>
                         <ion-input type="number" [(ngModel)]="config.targetRPE" placeholder="1-10"></ion-input>
                     </ion-item>
                 </div>
@@ -101,10 +101,10 @@
 
             <div class="footer-buttons">
                 <ion-button fill="outline" (click)="prevStep()" class="ion-margin-top">
-                    Back
+                    Atrás
                 </ion-button>
                 <ion-button expand="block" (click)="create()" class="cta-primary ion-margin-top">
-                    {{ plan ? 'Save Changes' : 'Create Plan' }}
+                    {{ plan ? 'Guardar Cambios' : 'Crear Plan' }}
                 </ion-button>
             </div>
         </div>

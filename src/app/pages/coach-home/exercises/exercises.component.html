@@ -1,30 +1,30 @@
 <div class="exercises-container">
     <!-- Filters Section -->
     <div class="filters-panel glass-panel">
-        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="applyFilters()" placeholder="Search exercises..."
+        <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="applyFilters()" placeholder="Buscar ejercicios..."
             mode="ios"></ion-searchbar>
 
         <div class="select-grid">
             <ion-item class="filter-item">
-                <ion-label position="stacked">Muscle Group</ion-label>
-                <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilters()" placeholder="All">
-                    <ion-select-option value="">All</ion-select-option>
+                <ion-label position="stacked">Grupo Muscular</ion-label>
+                <ion-select [(ngModel)]="selectedMuscle" (ionChange)="applyFilters()" placeholder="Todos">
+                    <ion-select-option value="">Todos</ion-select-option>
                     <ion-select-option *ngFor="let m of muscleGroups" [value]="m">{{ m }}</ion-select-option>
                 </ion-select>
             </ion-item>
 
             <ion-item class="filter-item">
-                <ion-label position="stacked">By Routine</ion-label>
-                <ion-select [(ngModel)]="selectedRoutine" (ionChange)="applyFilters()" placeholder="All">
-                    <ion-select-option value="">All</ion-select-option>
+                <ion-label position="stacked">Por Rutina</ion-label>
+                <ion-select [(ngModel)]="selectedRoutine" (ionChange)="applyFilters()" placeholder="Todas">
+                    <ion-select-option value="">Todas</ion-select-option>
                     <ion-select-option *ngFor="let r of routines" [value]="r.id">{{ r.name }}</ion-select-option>
                 </ion-select>
             </ion-item>
 
             <ion-item class="filter-item">
-                <ion-label position="stacked">By Athlete</ion-label>
-                <ion-select [(ngModel)]="selectedAthlete" (ionChange)="applyFilters()" placeholder="All">
-                    <ion-select-option value="">All</ion-select-option>
+                <ion-label position="stacked">Por Atleta</ion-label>
+                <ion-select [(ngModel)]="selectedAthlete" (ionChange)="applyFilters()" placeholder="Todos">
+                    <ion-select-option value="">Todos</ion-select-option>
                     <ion-select-option *ngFor="let a of athletes" [value]="a.id">{{ a.email }}</ion-select-option>
                 </ion-select>
             </ion-item>
@@ -60,11 +60,11 @@
     </div>
 
     <div *ngIf="!isLoading && filteredExercises.length === 0" class="empty-state">
-        <p>No exercises found matching your filters.</p>
+        <p>No se han encontrado ejercicios que coincidan con tus filtros.</p>
     </div>
 
     <ion-button expand="block" (click)="addExercise()" class="ion-margin-top cta-primary">
         <ion-icon name="add-outline" slot="start"></ion-icon>
-        New Exercise
+        Nuevo Ejercicio
     </ion-button>
 </div>

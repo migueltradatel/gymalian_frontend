@@ -7,7 +7,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">My Workout Plans</ion-title>
+    <ion-title class="header-page-title">Mis Planes de Entrenamiento</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -19,8 +19,8 @@
 
 <ion-content class="ion-padding">
   <div class="welcome-section">
-    <h2 class="text-orange">Hello, Athlete!</h2>
-    <p>Select a plan to start your session.</p>
+    <h2 class="text-orange">¡Hola, Atleta!</h2>
+    <p>Selecciona un plan para comenzar tu sesión.</p>
   </div>
 
   <div class="plan-grid">
@@ -28,17 +28,17 @@
       <ion-card-header>
         <div class="plan-header">
           <ion-card-title>{{ plan.name }}</ion-card-title>
-          <ion-badge color="primary">{{ plan.sessions.length }} Sessions</ion-badge>
+          <ion-badge color="primary">{{ plan.sessions.length }} Sesiones</ion-badge>
         </div>
       </ion-card-header>
       <ion-card-content>
         <div class="plan-info">
           <ion-icon name="calendar-outline" color="primary"></ion-icon>
-          <span>Ready for your next workout</span>
+          <span>Listo para tu próximo entrenamiento</span>
         </div>
       </ion-card-content>
       <div class="card-footer">
-        <span>Start Session</span>
+        <span>Comenzar Sesión</span>
         <ion-icon name="chevron-forward-outline"></ion-icon>
       </div>
     </ion-card>
@@ -46,6 +46,6 @@
 
   <div *ngIf="plans.length === 0" class="empty-state glass-panel">
     <ion-icon name="barbell-outline" color="medium"></ion-icon>
-    <p>No plans assigned to you yet.</p>
+    <p>Aún no tienes planes asignados.</p>
   </div>
 </ion-content>

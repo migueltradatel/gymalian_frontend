@@ -25,7 +25,7 @@ export class LoginPage {
       },
       (err) => {
         console.error(err);
-        alert('Login failed');
+        alert('Error al iniciar sesión');
       }
     );
   }

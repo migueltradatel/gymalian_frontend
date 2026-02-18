@@ -11,7 +11,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">Register</ion-title>
+    <ion-title class="header-page-title">Registro</ion-title>
 
     <ion-buttons slot="end"></ion-buttons>
   </ion-toolbar>
@@ -20,35 +20,37 @@
 <ion-content class="ion-padding">
   <div class="ion-text-center ion-margin-top">
     <img src="assets/logo.png" alt="App Logo" style="width: 80px; height: auto;">
-    <h2 class="ion-text-center ion-margin-bottom">Create Account</h2>
+    <h2 class="ion-text-center ion-margin-bottom">Crear Cuenta</h2>
   </div>
 
   <ion-card class="ion-no-margin">
     <ion-card-content>
       <form (ngSubmit)="register()">
         <ion-item lines="none" class="ion-margin-bottom">
-          <ion-select [(ngModel)]="role" name="role" label="Role" label-placement="floating" interface="popover">
-            <ion-select-option value="COACH">Coach</ion-select-option>
-            <ion-select-option value="ATHLETE">Athlete</ion-select-option>
+          <ion-select [(ngModel)]="role" name="role" label="Rol" label-placement="floating" interface="popover">
+            <ion-select-option value="COACH">Entrenador</ion-select-option>
+            <ion-select-option value="ATHLETE">Atleta</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-bottom">
           <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
-          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email" required></ion-input>
+          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico"
+            required></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-bottom">
           <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
-          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Password" required></ion-input>
+          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña"
+            required></ion-input>
         </ion-item>
 
         <ion-item *ngIf="role === 'ATHLETE'" lines="none" class="ion-margin-bottom">
           <ion-icon name="key-outline" slot="start" color="medium"></ion-icon>
-          <ion-input type="text" [(ngModel)]="code" name="code" placeholder="Access Code"></ion-input>
+          <ion-input type="text" [(ngModel)]="code" name="code" placeholder="Código de Acceso"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Register</ion-button>
+        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Registrarse</ion-button>
       </form>
     </ion-card-content>
   </ion-card>

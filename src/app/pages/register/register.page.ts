@@ -32,7 +32,7 @@ export class RegisterPage {
       },
       (err) => {
         console.error(err);
-        alert('Registration failed: ' + (err.error?.message || 'Unknown error'));
+        alert('Error al registrarse: ' + (err.error?.message || 'Error desconocido'));
       }
     );
   }

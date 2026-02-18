@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
     <ion-toolbar>
-        <ion-title>New Exercise</ion-title>
+        <ion-title>Nuevo Ejercicio</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="close()" color="danger">
                 <ion-icon name="close-circle-outline" slot="icon-only"></ion-icon>
@@ -12,17 +12,17 @@
 <ion-content class="ion-padding">
     <ion-list lines="none">
         <ion-item>
-            <ion-label position="stacked">Name</ion-label>
-            <ion-input [(ngModel)]="name" placeholder="e.g. Bench Press"></ion-input>
+            <ion-label position="stacked">Nombre</ion-label>
+            <ion-input [(ngModel)]="name" placeholder="p. ej. Press de Banca"></ion-input>
         </ion-item>
 
         <ion-item>
-            <ion-label position="stacked">Muscle Group</ion-label>
-            <ion-input [(ngModel)]="muscleGroup" placeholder="e.g. Chest"></ion-input>
+            <ion-label position="stacked">Grupo Muscular</ion-label>
+            <ion-input [(ngModel)]="muscleGroup" placeholder="p. ej. Pecho"></ion-input>
         </ion-item>
     </ion-list>
 
     <ion-button expand="block" (click)="save()" [disabled]="!name || !muscleGroup" class="ion-margin-top">
-        Save Exercise
+        Guardar Ejercicio
     </ion-button>
 </ion-content>

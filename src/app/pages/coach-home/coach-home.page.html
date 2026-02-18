@@ -7,7 +7,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">Coach Dashboard - {{ coachName }}</ion-title>
+    <ion-title class="header-page-title">Panel del Entrenador - {{ coachName }}</ion-title>
 
     <ion-buttons slot="end">
       <!-- Notification Bell -->
@@ -31,19 +31,19 @@
     <ion-segment [(ngModel)]="currentTab" (ionChange)="switchTab($any($event).detail.value)">
       <ion-segment-button value="dashboard">
         <ion-icon name="stats-chart-outline"></ion-icon>
-        <ion-label>Dashboard</ion-label>
+        <ion-label>Panel</ion-label>
       </ion-segment-button>
       <ion-segment-button value="exercises">
         <ion-icon name="barbell-outline"></ion-icon>
-        <ion-label>Exercises</ion-label>
+        <ion-label>Ejercicios</ion-label>
       </ion-segment-button>
       <ion-segment-button value="plans">
         <ion-icon name="calendar-outline"></ion-icon>
-        <ion-label>Plans</ion-label>
+        <ion-label>Planes</ion-label>
       </ion-segment-button>
       <ion-segment-button value="athletes">
         <ion-icon name="people-outline"></ion-icon>
-        <ion-label>Athletes</ion-label>
+        <ion-label>Atletas</ion-label>
       </ion-segment-button>
     </ion-segment>
   </div>

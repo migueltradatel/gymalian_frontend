@@ -4,14 +4,15 @@
     </div>
 
     <div class="filters-bar glass-panel">
-        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search by email..." class="premium-search"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar por email..."
+            class="premium-search"></ion-searchbar>
 
         <div class="select-group">
             <ion-item lines="none" class="filter-select">
-                <ion-label>Sort By</ion-label>
+                <ion-label>Ordenar por</ion-label>
                 <ion-select [(ngModel)]="sortBy">
-                    <ion-select-option value="expiry_desc">Newest Subscriber</ion-select-option>
-                    <ion-select-option value="expiry_asc">Oldest Subscriber</ion-select-option>
+                    <ion-select-option value="expiry_desc">Suscriptor más reciente</ion-select-option>
+                    <ion-select-option value="expiry_asc">Suscriptor más antiguo</ion-select-option>
                     <ion-select-option value="email_asc">Email (A-Z)</ion-select-option>
                 </ion-select>
             </ion-item>
@@ -26,7 +27,7 @@
                 </ion-avatar>
                 <ion-label>
                     <h2>{{ athlete.email }}</h2>
-                    <p>Subscription: {{ athlete.subscriptionExpiry | date:'shortDate' }}</p>
+                    <p>Suscripción: {{ athlete.subscriptionExpiry | date:'shortDate' }}</p>
                 </ion-label>
                 <ion-icon [name]="isExpanded(athlete._id) ? 'chevron-up-outline' : 'chevron-down-outline'" slot="end"
                     color="medium"></ion-icon>
@@ -45,12 +46,12 @@
                             Export History (CSV)
                         </ion-button>
                     </div>
-                    <div *ngIf="details.plans.length === 0" class="no-data">No assigned plans.</div>
+                    <div *ngIf="details.plans.length === 0" class="no-data">Sin planes asignados.</div>
 
                     <div *ngFor="let plan of details.plans" class="plan-detail-box">
                         <h3 class="plan-title">{{ plan.name }}</h3>
                         <div class="log-history">
-                            <h4>Activity History</h4>
+                            <h4>Historial de Actividad</h4>
                             <div *ngIf="details.logs.length === 0" class="no-data">No completed sessions yet.</div>
 
                             <!-- Only logs related to this plan -->
@@ -65,8 +66,8 @@
                                         </ion-badge>
                                     </div>
                                     <div class="log-stats">
-                                        <span>Volume: {{ log.totalVolume || 0 }} kg</span>
-                                        <span>Exercises: {{ log.exercises.length }}</span>
+                                        <span>Volumen: {{ log.totalVolume || 0 }} kg</span>
+                                        <span>Ejercicios: {{ log.exercises.length }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -78,6 +79,6 @@
     </div>
 
     <div *ngIf="!isLoading && filteredAthletes.length === 0" class="empty-state">
-        <p>{{ searchTerm ? 'No athletes match your search.' : 'You don\'t have any athletes assigned yet.' }}</p>
+        <p>{{ searchTerm ? 'Ningún atleta coincide con tu búsqueda.' : 'Aún no tienes ningún atleta asignado.' }}</p>
     </div>
 </div>

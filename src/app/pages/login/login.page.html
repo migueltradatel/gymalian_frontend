@@ -11,7 +11,7 @@
       </div>
     </ion-buttons>
 
-    <ion-title class="header-page-title">Login</ion-title>
+    <ion-title class="header-page-title">Iniciar Sesión</ion-title>
 
     <ion-buttons slot="end"></ion-buttons>
   </ion-toolbar>
@@ -20,8 +20,8 @@
 <ion-content class="ion-padding">
   <div class="ion-text-center ion-margin-top ion-padding-top">
     <img src="assets/logo.png" alt="App Logo" style="width: 120px; height: auto;" class="ion-margin-bottom">
-    <h1 class="text-gradient-orange ion-no-margin">Welcome Back</h1>
-    <p class="ion-text-secondary">Sign in to continue</p>
+    <h1 class="text-gradient-orange ion-no-margin">Bienvenido de nuevo</h1>
+    <p class="ion-text-secondary">Inicia sesión para continuar</p>
   </div>
 
   <ion-card class="ion-no-margin ion-margin-top">
@@ -29,22 +29,24 @@
       <form (ngSubmit)="login()">
         <ion-item lines="none" class="ion-margin-bottom">
           <ion-icon name="mail-outline" slot="start" color="medium"></ion-icon>
-          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Email" required></ion-input>
+          <ion-input type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico"
+            required></ion-input>
         </ion-item>
 
         <ion-item lines="none" class="ion-margin-bottom">
           <ion-icon name="lock-closed-outline" slot="start" color="medium"></ion-icon>
-          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Password" required></ion-input>
+          <ion-input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña"
+            required></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Login</ion-button>
+        <ion-button expand="block" type="submit" class="cta-primary ion-margin-top">Entrar</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
 
   <div class="ion-text-center ion-margin-top">
     <ion-button fill="clear" routerLink="/register" color="secondary">
-      Create Account
+      Crear Cuenta
     </ion-button>
   </div>
 </ion-content>

@@ -4,14 +4,15 @@
     </div>
 
     <div class="filters-bar glass-panel">
-        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search by name..." class="premium-search"></ion-searchbar>
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Buscar por nombre..."
+            class="premium-search"></ion-searchbar>
 
         <div class="select-group">
             <ion-item lines="none" class="filter-select">
-                <ion-label>Athlete</ion-label>
+                <ion-label>Atleta</ion-label>
                 <ion-select [(ngModel)]="selectedAthleteId">
-                    <ion-select-option value="all">All Athletes</ion-select-option>
-                    <ion-select-option value="">General Templates</ion-select-option>
+                    <ion-select-option value="all">Todos los Atletas</ion-select-option>
+                    <ion-select-option value="">Plantillas Generales</ion-select-option>
                     <ion-select-option *ngFor="let athlete of athletes" [value]="athlete._id">
                         {{ athlete.email }}
                     </ion-select-option>
@@ -19,10 +20,10 @@
             </ion-item>
 
             <ion-item lines="none" class="filter-select">
-                <ion-label>Sort</ion-label>
+                <ion-label>Ordenar</ion-label>
                 <ion-select [(ngModel)]="sortBy">
-                    <ion-select-option value="newest">Newest First</ion-select-option>
-                    <ion-select-option value="oldest">Oldest First</ion-select-option>
+                    <ion-select-option value="newest">Más nuevos primero</ion-select-option>
+                    <ion-select-option value="oldest">Más antiguos primero</ion-select-option>
                 </ion-select>
             </ion-item>
         </div>
@@ -33,7 +34,7 @@
             <ion-card-header>
                 <ion-card-title class="plan-title">{{ plan.name }}</ion-card-title>
                 <div class="plan-actions-row">
-                    <ion-badge color="secondary" class="sessions-badge">{{ plan.sessions.length }} Sessions</ion-badge>
+                    <ion-badge color="secondary" class="sessions-badge">{{ plan.sessions.length }} Sesiones</ion-badge>
                     <div class="action-buttons">
                         <ion-button fill="clear" color="primary" (click)="editPlan(plan)" class="action-btn">
                             <ion-icon name="create-outline" slot="icon-only"></ion-icon>
@@ -48,11 +49,11 @@
                 <div class="plan-details">
                     <div class="detail-item">
                         <ion-icon name="person-outline"></ion-icon>
-                        <span>Assigned to: {{ plan.athleteId ? plan.athleteId.email : 'General Template' }}</span>
+                        <span>Asignado a: {{ plan.athleteId ? plan.athleteId.email : 'Plantilla General' }}</span>
                     </div>
                     <div class="detail-item">
                         <ion-icon name="time-outline"></ion-icon>
-                        <span>Created: {{ plan.createdAt | date:'shortDate' }}</span>
+                        <span>Creado: {{ plan.createdAt | date:'shortDate' }}</span>
                     </div>
                 </div>
             </ion-card-content>
@@ -60,12 +61,12 @@
     </div>
 
     <div *ngIf="!isLoading && filteredPlans.length === 0" class="empty-state">
-        <p>{{ searchTerm || selectedAthleteId !== 'all' ? 'No matches found for your current filters.' : 'No workout
-            plans found.' }}</p>
+        <p>{{ searchTerm || selectedAthleteId !== 'all' ? 'No se han encontrado coincidencias para tus filtros.' : 'No
+            se han encontrado planes de entrenamiento.' }}</p>
     </div>
 
     <ion-button expand="block" (click)="createPlan()" class="ion-margin-top cta-primary">
         <ion-icon name="add-outline" slot="start"></ion-icon>
-        New Workout Plan
+        Nuevo Plan de Entrenamiento
     </ion-button>
 </div>
